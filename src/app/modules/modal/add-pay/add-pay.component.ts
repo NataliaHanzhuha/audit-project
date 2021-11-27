@@ -8,7 +8,8 @@ import { RouteService } from 'src/app/services/route.service';
   styleUrls: ['./add-pay.component.scss']
 })
 export class AddPayComponent {
-  pay: number | null = 0
+  pay: number | null = 0;
+  max = this.routeService.getItemCount() * 9;
   readonly payByMonth = this.routeService.getItemCount();
 
   constructor(private ref: NzModalRef, private routeService: RouteService,) {}

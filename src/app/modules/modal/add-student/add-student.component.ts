@@ -50,9 +50,6 @@ export class AddStudentComponent extends UnsubscribeHook implements OnInit {
             routes!.forEach((t: RouteDTO) => {
               this.routes.push(this.fb.group({...t, studentId: this.student!.id}));
             });
-
-            console.log(this.routes.value);
-            
           }
         });
     }
@@ -135,7 +132,6 @@ export class AddStudentComponent extends UnsubscribeHook implements OnInit {
 
   removeTeacher(i: number): void {
     const id = this.routes.controls[i].value.teacherId;
-    console.log(id, this.student, !!this.student?.teachers!.find((t: string) => t === id));
     
     if (!!this.student?.teachers!.find((t: string) => t === id)) {
       this.routeService.deleteRoute(new RouteFilter(id, this.student!.id))

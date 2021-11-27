@@ -4,7 +4,6 @@ import { Observable, of, Subject } from 'rxjs';
 import { finalize, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { DropdownOption } from 'src/app/models/dropdown-option';
 import { Student } from 'src/app/models/student';
-import { Teacher } from 'src/app/models/teacher';
 import { AddStudentComponent } from 'src/app/modules/modal/add-student/add-student.component';
 import { StudentService } from 'src/app/services/student.service';
 import { UnsubscribeHook } from 'src/app/utils/hooks/unsubscribe.hook';
@@ -19,6 +18,7 @@ export class StudentDashboardComponent extends UnsubscribeHook implements OnInit
   students: Student[] = [];
   studentsOption: DropdownOption[] = [];
   selectedStudent!: string;
+  loading = false;
   private subject$ = new Subject<void>();
 
   constructor(
@@ -50,8 +50,6 @@ export class StudentDashboardComponent extends UnsubscribeHook implements OnInit
   }
 
   private processingStudent(res: string, student: Student | null): Observable<any> {
-    console.log(res, student);
-    
     if (!res || (!!student && student.name === res)) {
       return of(null);
     }
@@ -62,6 +60,7 @@ export class StudentDashboardComponent extends UnsubscribeHook implements OnInit
   }
 
   refresh = (): void => {
+    this.loading = true;
     this.subject$.next();
   }
 
@@ -84,7 +83,13 @@ export class StudentDashboardComponent extends UnsubscribeHook implements OnInit
   private getTeacherList = (): Observable<Student[]> => {
     return this.studentService
       .getStudents()
-      .pipe(tap(this.processingTeacherList));
+      .pipe(
+        tap(this.processingTeacherList), 
+        finalize(() => {
+          this.loading = false;
+          this.cd.detectChanges();
+        })
+      );
   }
 
   private processingTeacherList = (res: Student[]) => {

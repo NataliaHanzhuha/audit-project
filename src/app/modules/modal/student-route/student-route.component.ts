@@ -6,6 +6,7 @@ import { DropdownOption } from 'src/app/models/dropdown-option';
 import { RouteDTO } from 'src/app/models/student';
 import { StudentService } from 'src/app/services/student.service';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { differenceInCalendarYears } from 'date-fns';
 
 @Component({
   selector: 'app-student-route',
@@ -27,7 +28,7 @@ export class StudentRouteComponent implements OnInit {
     this.savedItem = value;
     
     this.typeOptions = [new DropdownOption('Контракт', 0), new DropdownOption('Пільга', 1)];
-    
+      
     this.cd.detectChanges();
   }
 
@@ -46,7 +47,7 @@ export class StudentRouteComponent implements OnInit {
   list: any[] = [];
   savedItem!: RouteDTO | null;
   form!: FormGroup;
-
+  today = new Date();
   constructor(
     private fb: FormBuilder, 
     private teacherService: TeacherService,
@@ -57,6 +58,11 @@ export class StudentRouteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDropdowns();
+  }
+
+  disabledDate = (current: Date): boolean => {
+    return differenceInCalendarYears(current, this.today) > 1 
+        || differenceInCalendarYears(this.today, current) > 1;
   }
 
   disabledOption(id: string): boolean {

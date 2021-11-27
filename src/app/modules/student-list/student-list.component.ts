@@ -27,7 +27,6 @@ export class StudentListComponent extends UnsubscribeHook implements OnInit {
       const startMonth = (new Date(student.startDate).getMonth() + 4) % 12;
 
       for (let i = 0; i < this.months.length; i++) {
-        console.log(this.currentMonth, startMonth);
         
         if (startMonth > i) {
           payArray.push(null)
@@ -124,11 +123,7 @@ export class StudentListComponent extends UnsubscribeHook implements OnInit {
           }
           
           return this.routeService.payForStudy(id, res)
-            .pipe(tap((res) => {
-              console.log('payed', res);
-              
-              this.refresh.emit()
-            }));
+            .pipe(tap(() => this.refresh.emit()));
         }))
       .subscribe()
   }

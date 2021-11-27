@@ -8,8 +8,7 @@ export class StudentFilterPipe implements PipeTransform {
         if (!value) {
             return '';
         }
-        console.log(value, array, array.find((student: Student) => student!.id === value)?.name);
-        
+
         return array.find((student: Student) => student!.id === value)?.name;
     }
 }

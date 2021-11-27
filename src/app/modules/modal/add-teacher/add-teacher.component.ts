@@ -51,9 +51,6 @@ export class AddTeacherComponent extends UnsubscribeHook implements OnInit {
               this.routes.push(this.fb.group({...t, teacherId: this.teacher!.id}));
             });            
           }
-
-          console.log(this);
-          
         });
     }
   }
@@ -86,10 +83,10 @@ export class AddTeacherComponent extends UnsubscribeHook implements OnInit {
   }
 
   removeStudent(i: number): void {
-    const student = this.routes.controls[i].value;
+    const id = this.routes.controls[i].value.studentId;
     
-    if (this.teacher && !!this.teacher.students!.find((t: string) => t === student.studentId)) {
-      const body = new RouteFilter(this.teacher!.id, student!.id)
+    if (this.teacher && !!this.teacher.students!.find((t: string) => t === id)) {
+      const body = new RouteFilter(this.teacher!.id, id)
 
       this.routeService.deleteRoute(body)
         .pipe(takeUntil(this.unsubscribe$))

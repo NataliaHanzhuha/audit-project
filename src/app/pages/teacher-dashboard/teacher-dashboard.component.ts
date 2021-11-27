@@ -19,6 +19,7 @@ export class TeacherDashboardComponent extends UnsubscribeHook implements OnInit
   teachers: Teacher[] = [];
   teacherOption: DropdownOption[] = [];
   selectedTeacher!: string;
+  loading = false;
   private subject$ = new Subject<void>();
 
   constructor(
@@ -34,6 +35,7 @@ export class TeacherDashboardComponent extends UnsubscribeHook implements OnInit
   }
 
   refresh = (): void => {
+    this.loading = true;
     this.subject$.next();
   }
 
@@ -80,7 +82,13 @@ export class TeacherDashboardComponent extends UnsubscribeHook implements OnInit
   private getTeacherList = (): Observable<Teacher[]> => {
     return this.teacherService
       .getTeacherList()
-      .pipe(tap(this.processingTeacherList));
+      .pipe(
+        tap(this.processingTeacherList),
+        finalize(() => {
+          this.loading = false;
+          this.cd.detectChanges();
+        })
+      );
   }
 
   private processingTeacherList = (res: Teacher[]) => {

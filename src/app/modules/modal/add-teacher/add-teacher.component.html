@@ -6,13 +6,13 @@
       </nz-form-control>
     </nz-form-item >
 
-    <nz-list nzBordered nzSize="small">
+    <nz-list nzBordered nzSize="small" *ngIf="!!teacher">
       <nz-list-header>
         Додати учнів
         <button nz-button 
                 nzType="link" 
                 (click)="addNewStudent()"
-                [disabled]="!teacher || savedItem || studentList.length === routes.length">
+                [disabled]="savedItem || studentList.length === routes.length">
           Додати
         </button>
   
@@ -59,6 +59,7 @@
                              [currentItem]="i === editedItem"
                              [selectedRouts]="getStudentIds()"
                              [isStudent]="false"
+                             [editMode]="editMode"
                              (cancel)="cancelStudent(i)" 
                              (save)="saveStudent($event, i)"
           ></app-student-route>
