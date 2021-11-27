@@ -29,11 +29,7 @@ app.use(passport.initialize());
 
 mongoose.connect(
     `mongodb+srv://admin:QAI2tAkArHOror5T@cluster0.dpxaj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, 
-    {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true
-    }
+    { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
 );
 
 const db = mongoose.connection;
