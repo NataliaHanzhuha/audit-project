@@ -60,10 +60,10 @@ app.use((req, res, next) => {
 })
 
 //connect routes 
-app.use('/teachers', checkToken, teacherRoutes)
-app.use('/students',checkToken, studentRoutes)
-app.use('/routes', checkToken, routes)
-app.use('/', auth)
+app.use('/api/teachers', checkToken, teacherRoutes)
+app.use('/api/students',checkToken, studentRoutes)
+app.use('/api/routes', checkToken, routes)
+app.use('/api/', auth)
 
 // error hendler
 app.use((req, res, next) => {
