@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng serve",
+    "start": "node server.js",
     "build": "node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -11,20 +11,26 @@
     "project": "node index server.js && npm run start",
     "postinstall": "ng build --aot --prod"
   },
+  "engines": {
+    "node": "14.18.1",
+    "npm": "8.1.1"
+  },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "~12.2.11",
     "@angular/animations": "~12.2.0",
+    "@angular/cli": "~12.2.11",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
+    "@angular/compiler-cli": "~12.2.0",
     "@angular/core": "~12.2.0",
     "@angular/forms": "~12.2.0",
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
-    "@angular/cli": "~12.2.11",
-    "@angular/compiler-cli": "~12.2.0",
-    "@angular-devkit/build-angular": "~12.2.11",
+    "express": "^4.17.1",
     "ng-zorro-antd": "^12.0.1",
+    "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
