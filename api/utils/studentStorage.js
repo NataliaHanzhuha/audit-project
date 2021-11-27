@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const Student = require('../models/student')
-const { removeTeacher } = require('./teacherStorage')
 
 module.exports = {
     getAllStudents(req, res, next) {
