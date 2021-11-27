@@ -1,0 +1,79 @@
+<div class="filters" [formGroup]="form">
+    <div>
+        <nz-select formControlName="selectedTeacher" 
+                    nzPlaceHolder="Ім'я вчителя" 
+                    nzAllowClear
+                    nzShowSearch
+                    [nzDisabled]="form.value.selectedStudent" >
+            <nz-option *ngFor="let item of teacherOption" 
+                        [nzValue]="item.id" 
+                        [nzLabel]="item.name"></nz-option>
+        </nz-select>
+
+        <nz-select formControlName="selectedStudent" 
+                   nzPlaceHolder="Ім'я учня" 
+                   nzShowSearch 
+                   nzAllowClear >
+            <nz-option *ngFor="let item of studentList" 
+                        [nzValue]="item.id" 
+                        [nzLabel]="item.name"></nz-option>
+        </nz-select>
+        
+        <nz-select formControlName="selectedPayType" 
+                    nzPlaceHolder="Тип оплати" 
+                    nzAllowClear
+                    [nzDisabled]="form.value.selectedStudent" >
+            <nz-option *ngFor="let item of payOption" 
+                        [nzValue]="item.value" 
+                        [nzLabel]="item.label"></nz-option>
+        </nz-select>
+
+        <nz-select formControlName="selectedStudentType" 
+                    nzPlaceHolder="Тип учнів" 
+                    nzAllowClear 
+                    [nzDisabled]="form.value.selectedStudent">
+            <nz-option *ngFor="let item of typeOptions" 
+                        [nzValue]="item.value" 
+                        [nzLabel]="item.label"></nz-option>
+        </nz-select>
+
+        <button nz-button 
+                nzType="default" 
+                (click)="changeCount()">Змінити ставку оплати</button>
+    </div>
+
+    
+    <div>
+        <button nz-button
+                nzType="link"
+                (click)="refresh()">
+                Оновити
+        </button>
+
+        <button nz-button
+                nzType="link"
+                nzDanger
+                [disabled]="emptyFilter"
+                (click)="resetFilter()">
+                Очистити фільтр
+        </button>
+</div>
+</div>
+
+<nz-spin [nzSpinning]="loading" class="wrapper">
+    <div *ngIf="form.value?.selectedTeacher; else allTeachers">
+        <app-student-list [teacher]="filterTeachers(form.value?.selectedTeacher)"
+                          [filter]="form.value"
+                          (refresh)="refresh()"></app-student-list>
+    </div>
+</nz-spin>
+
+<ng-template #allTeachers>
+        <div *ngFor="let teacher of teachers" class="teacher-wrapper">
+           
+                <app-student-list [teacher]="teacher"
+                                  [filter]="form.value"
+                                  (isEmpty)="teacher.isEmpty = $event"
+                                  (refresh)="refresh()"></app-student-list>
+        </div>
+</ng-template>

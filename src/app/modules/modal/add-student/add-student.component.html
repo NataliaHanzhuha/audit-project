@@ -1,0 +1,92 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Повне ім'я учня</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-list nzBordered nzSize="small" *ngIf="student?.id">
+    <nz-list-header>
+      Додати напрямки навчання
+      <button nz-button 
+              nzType="link" 
+              (click)="addNewTeacher()"
+              [disabled]="!student?.id || savedItem || teacherList.length === routes.length">
+        Додати
+      </button>
+
+    </nz-list-header>
+
+    <ng-container *ngIf="routes.length">
+      <nz-list-item formArrayName="teachers" 
+                    *ngFor="let item of routes.controls; let i = index">
+
+        <nz-descriptions *ngIf="editedItem !== i"
+                          nzLayout="vertical" 
+                          [nzColon]="false"
+                          [nzColumn]="{ xxl: 6, xl: 5, lg: 5, md: 5, sm: 2, xs: 1 }">
+          <nz-descriptions-item nzTitle="Ім'я вчителя">
+            {{item.value.teacherId | teacherFilter: teacherList}}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Тип учня">
+            {{item.value.type === 0 ? 'Контракт' : 'Пільга'}}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Клас учня">
+            {{item.value.classNumber}}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Початок">
+            {{item.value.startDate | date}}
+          </nz-descriptions-item>
+          <nz-descriptions-item [nzTitle]="actions" [nzSpan]="2"></nz-descriptions-item>
+        </nz-descriptions>
+
+        <ng-template #actions>
+          <button nz-button 
+                  nzType="link" 
+                  (click)="editTeacher(i)">
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+          </button>
+          <button nz-button 
+                  nzType="link" 
+                  nzDanger
+                  nz-popconfirm
+                  [nzPopconfirmTitle]="'Ви впевнені, що хочете видалити дані про напрямок навчання?'"
+                  nzCancelText="Ні"
+                  nzOkText="Так"
+                  nzPopconfirmPlacement="left"
+                  (nzOnConfirm)="removeTeacher(i)">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+          </button>
+        </ng-template>
+
+        <app-student-route [formValue]="savedItem" 
+                           [currentItem]="i === editedItem"
+                           [isStudent]="true"
+                           [editMode]="editMode"
+                           [selectedRouts]="getTeacherIds()"
+                           (cancel)="cancelTeacher(i)" 
+                           (save)="saveTeacher($event, i)"
+        ></app-student-route>
+      </nz-list-item>
+    </ng-container>
+
+    <nz-list-empty *ngIf="!routes.length"></nz-list-empty>
+
+  </nz-list>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button 
+          nzType="default" 
+          (click)="cancel()">
+      Закрити
+  </button>
+
+  <button nz-button
+          nzType="primary"
+          (click)="save()"
+          [disabled]="disableSaveButton() || savedItem">
+    Зберегти
+  </button>
+</div>

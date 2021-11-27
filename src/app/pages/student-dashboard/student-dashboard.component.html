@@ -1,0 +1,57 @@
+<nz-list>
+    <nz-list-header>
+        <div>Список учнів</div>
+        <nz-select [(ngModel)]="selectedStudent" 
+                   nzPlaceHolder="Ім'я учня" 
+                   nzShowSearch 
+                   nzAllowClear >
+            <nz-option *ngFor="let item of studentsOption" 
+                        [nzValue]="item.value" 
+                        [nzLabel]="item.label"></nz-option>
+        </nz-select>
+
+        <div>
+            <button nz-button
+                    nzType="link"
+                    (click)="refresh()">
+                    Оновити
+            </button>
+            <button nz-button
+                    nzType="link"
+                    class="success"
+                    (click)="addStudent(null)">
+                    Додати учня
+            </button>
+        </div>
+    </nz-list-header>
+
+    <nz-list-item *ngFor="let student of students | studentFilter: selectedStudent">
+        {{student?.name}}
+
+        <ul nz-list-item-actions>
+            <nz-list-item-action>
+                <button nz-button
+                        nzType="link"
+                        (click)="addStudent(student)">
+                        Змінити напрямки навчання
+                        <nz-badge [nzCount]="student?.teachers?.length"></nz-badge>
+                </button>
+            </nz-list-item-action>
+            <nz-list-item-action>
+                <button nz-button
+                        nzType="link"
+                        nzDanger
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="'Ви впевнені, що хочете видалити ВСІ дані про ' + student.name + '?'"
+                        nzCancelText="Ні"
+                        nzOkText="Так"
+                        nzPopconfirmPlacement="left"
+                        (nzOnConfirm)="deleteStudent(student.id!)">
+                <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    Видалити учня
+                </button>
+            </nz-list-item-action>
+          </ul>
+        
+    </nz-list-item>
+</nz-list>

@@ -1,0 +1,83 @@
+<form nz-form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="8">Повне ім'я вчителя</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input formControlName="name">
+      </nz-form-control>
+    </nz-form-item >
+
+    <nz-list nzBordered nzSize="small">
+      <nz-list-header>
+        Додати учнів
+        <button nz-button 
+                nzType="link" 
+                (click)="addNewStudent()"
+                [disabled]="!teacher || savedItem || studentList.length === routes.length">
+          Додати
+        </button>
+  
+      </nz-list-header>
+  
+      <ng-container *ngIf="routes.length">
+        <nz-list-item formArrayName="students" 
+                      *ngFor="let item of routes.controls; let i = index">
+  
+          <nz-descriptions *ngIf="editedItem !== i"
+                            nzLayout="vertical" 
+                            [nzColon]="false"
+                            [nzColumn]="{ xxl: 6, xl: 5, lg: 5, md: 5, sm: 2, xs: 1 }">
+            <nz-descriptions-item nzTitle="Ім'я учня">
+              {{item.value.studentId | studentsFilter: studentList}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Тип учня">
+              {{item.value.type === 0 ? 'Контракт' : 'Пільга'}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Клас учня">
+              {{item.value.classNumber}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Початок">
+              {{item.value.startDate | date}}
+            </nz-descriptions-item>
+            <nz-descriptions-item [nzTitle]="actions" [nzSpan]="2"></nz-descriptions-item>
+          </nz-descriptions>
+  
+          <ng-template #actions>
+            <button nz-button 
+                    nzType="link" 
+                    (click)="editStudent(i)">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+            </button>
+            <button nz-button 
+                    nzType="link" 
+                    nzDanger
+                    (click)="removeStudent(i)">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </button>
+          </ng-template>
+  
+          <app-student-route [formValue]="savedItem" 
+                             [currentItem]="i === editedItem"
+                             [selectedRouts]="getStudentIds()"
+                             [isStudent]="false"
+                             (cancel)="cancelStudent(i)" 
+                             (save)="saveStudent($event, i)"
+          ></app-student-route>
+        </nz-list-item>
+      </ng-container>
+  
+      <nz-list-empty *ngIf="!routes.length"></nz-list-empty>
+  
+    </nz-list>
+</form>
+
+<div *nzModalFooter>
+    <button nz-button 
+            nzType="default" 
+            (click)="cancel()"
+            >Відмінити</button>
+    <button nz-button 
+            nzType="primary" 
+            (click)="save()" 
+            [disabled]="disableSaveButton() || savedItem"
+            >Зберегти</button>
+</div>

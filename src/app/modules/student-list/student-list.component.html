@@ -1,0 +1,45 @@
+<nz-table #basicTable 
+          [nzData]="students" 
+          [nzShowPagination]="false" 
+          [nzBordered]="false"
+          [nzTitle]="filter.selectedTeacher ? null : header"
+          *ngIf="students.length">
+    <thead>
+      <tr>
+        <th>Ім'я</th>
+        <th>Tип</th>
+        <th>Клас</th>
+        <th *ngFor="let item of months; let i = index" [class.current]="i === currentMonth"> {{item}}</th>
+        <th>Всього</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td [class.check]="data.payArray![currentMonth] === payByMonth" class="name">{{data.studentName}}</td>
+        <td >{{!data?.type ? 'Контракт' : 'Пільга'}}</td>
+        <td>{{data?.classNumber}}</td>
+        <td *ngFor="let item of data.payArray; let i = index" 
+            [ngClass]="setIcon(item)"
+            [class.current]="i === currentMonth"
+            nzWidth="40px"
+        >{{data?.type ? '' : item}}</td>
+        <td nzWidth="50px">{{data?.type ? '' : data.payed}}</td>
+        <td class="actions">
+            <button nz-button
+                    nzType="link"
+                    class="success"
+                    nzSize="large"
+                    [disabled]="!!data.type"
+                    (click)="openModal(data.id, data?.studentName!)">
+                <i nz-icon nzType="dollar" nzTheme="outline"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <ng-template #header>
+    <h4>{{teacher.name}}</h4>
+    <span>Всього учнів: {{teacher.students.length}}</span>
+</ng-template>

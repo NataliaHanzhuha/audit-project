@@ -1,0 +1,10 @@
+:host ::ng-deep {
+    nz-list-header {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+nz-select {
+    width: 200px;
+}

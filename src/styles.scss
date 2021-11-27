@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "../node_modules/ng-zorro-antd/ng-zorro-antd.dark.css";
+::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    background-color: #ebebeb;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+}
+.ant-btn {
+    padding: 4px 8px;
+}
+
+.success:not(.ant-btn-link[disabled]) {
+    color: #52c41a;
+}
+
+.warning:not(.ant-btn-link[disabled]) {
+    color: #52c41a;
+}
+
+nz-list-item > div {
+    width: 100% !important;
+}
+
+.ant-descriptions-row > td {
+    padding-bottom: 0 !important;
+}
+
+.ant-list > nz-spin > .ant-spin-container{
+    // max-height: 50vh;
+    overflow-y: auto;
+}
+
+.ant-empty-img-simple-path {
+    stroke: none;
+}

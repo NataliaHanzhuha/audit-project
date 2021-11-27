@@ -1,0 +1,20 @@
+:host ::ng-deep {
+    .ant-form {
+        width: 100%;
+    }
+
+    nz-list-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    nz-list-item {
+        display: block;
+    }
+}
+
+.view {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}

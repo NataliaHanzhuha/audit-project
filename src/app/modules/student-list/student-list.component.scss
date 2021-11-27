@@ -1,0 +1,52 @@
+:host ::ng-deep {
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+        padding: 8px;
+        text-align: center;
+        background-color: transparent;
+    }
+
+    .ant-table-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 16px 16px 0px;
+    }
+}
+
+.name {
+    text-align: left !important;
+}
+
+.stop {
+    color: gray;
+}
+
+.check {
+    color: green;
+    font-weight: 500;
+}
+
+.close {
+    color: red;
+}
+
+.question {
+    color: orange;
+    font-weight: 500;
+}
+
+th.current {
+    border: 1px solid orange;
+    // border-bottom: none;
+}
+
+td.current {
+    border: 1px solid orange;
+    border-top: none;
+} 
+
+.actions {
+    padding: 0 !important;
+}
