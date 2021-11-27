@@ -5,8 +5,34 @@
     }
   
     .ant-layout-footer {
-      padding: 9px 50px;
+      padding: 5px 50px;
+      text-align: center;
     }
+
+    .ant-layout-sider-children {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 55px;
+
+      ul {
+        flex: 1;
+      }
+    }
+
+    .ant-layout-sider,
+    .ant-layout-sider-trigger {
+      background-color: white;
+      color: black;
+    }
+
+    .ant-layout-sider-trigger:hover {
+      color: #1890ff;
+    }
+  }
+
+  i {
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
   .inner-content {
@@ -15,35 +41,18 @@
     width: 100%;
   }
   
-  [nz-menu] {
-    line-height: 64px;
-    display: inline-flex;
-    align-items: baseline;
-    width: 82%;
-
-    & > div {
-        flex: 1;
-        display: flex;
-        justify-content: end;
-    }
-  }
-  
   nz-content {
-    margin: 10px 50px;
+    margin: 10px;
     padding: 10px;
     background: #fff;
-  }
-  
-  nz-footer {
-    text-align: center;
   }
   
   .logo {
     width: 120px;
     height: 31px;
     background: rgba(255, 255, 255, 0.2);
-    margin: 16px 24px 16px 0;
-    float: left;
-    content: "Logo";
+    margin: 10px 40px;
+    color: white;
   }
+
   
