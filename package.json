@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "server-run": "nodemon server.js",
-    "project": "node index server.js && npm run start"
+    "project": "node index server.js && npm run start",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@angular/cli": "~12.2.11",
+    "@angular/compiler-cli": "~12.2.0",
     "ng-zorro-antd": "^12.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
@@ -27,8 +30,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.11",
-    "@angular/cli": "~12.2.11",
-    "@angular/compiler-cli": "~12.2.0",
+
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.8.0",
