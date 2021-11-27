@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Routes } from '../models/student';
 import { AuditStudent, AuditTeacher, Teacher } from '../models/teacher';
 
@@ -9,7 +10,7 @@ import { AuditStudent, AuditTeacher, Teacher } from '../models/teacher';
   providedIn: 'root',
 })
 export class TeacherService {
-  private url = 'https://diploma-server-01.herokuapp.com/';
+  private url = environment.url;
 
   constructor(private http: HttpClient) {}
 

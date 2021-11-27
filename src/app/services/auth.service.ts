@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private url = 'https://diploma-server-01.herokuapp.com/';
+  private url = environment.url;
   private tokenName = 'token';
 
   get token(): string | null {
