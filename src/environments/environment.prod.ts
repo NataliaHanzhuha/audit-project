@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'https://diploma-view.herokuapp.com/api/'
+  url: 'https://diploma-server-01/'
 };
