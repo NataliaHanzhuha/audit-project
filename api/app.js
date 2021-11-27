@@ -1,30 +1,17 @@
-//Install express server
-const express = require('express');
-const path = require('path');
-
-const app = express();
-
+const express = require('express')
+const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 
-const teacherRoutes = require('./api/routes/teachers')
-const studentRoutes = require('./api/routes/students')
-const routes = require('./api/routes/routers')
-const auth = require('./api/routes/auth')
-const { checkToken } = require('./api/utils/auth')
+const teacherRoutes = require('./routes/teachers')
+const studentRoutes = require('./routes/students')
+const routes = require('./routes/routers')
+const auth = require('./routes/auth')
+const { checkToken } = require('./utils/auth')
 
-const passport = require('passport');
-
-// Serve only the static files form the dist directory
-app.use(express.static(__dirname + '/dist/audit-project'));
-
-app.get('/*', function(req,res) {
-    
-res.sendFile(path.join(__dirname+'/dist/audit-project/index.html'));
-});
-
+var passport = require('passport');
 app.use(passport.initialize());
 
 mongoose.connect(
@@ -81,5 +68,4 @@ app.use((error, req, res, next) => {
     })
 })
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+module.exports = app
